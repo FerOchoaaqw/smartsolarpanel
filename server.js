@@ -16,6 +16,11 @@ app.use(session({
   saveUninitialized: true
 }));
 
+// Ruta para servir la página de inicio (login.html)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'login.html'));  // Asegúrate de tener 'login.html' en la raíz del proyecto
+});
+
 // Configuración de Nodemailer para enviar correos desde Gmail
 const transporter = nodemailer.createTransport({
   service: 'gmail',  // Usamos Gmail
