@@ -18,10 +18,10 @@ app.use(session({
 
 // Configuración de Nodemailer para enviar correos desde Gmail
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: 'gmail',  // Usamos Gmail
   auth: {
-    user: 'smartsolarpanel1@gmail.com',
-    pass: 'duhq pwze itqb kczt',
+    user: 'smartsolarpanel1@gmail.com',  // Tu correo de Gmail
+    pass: 'duhq pwze itqb kczt',  // Tu contraseña o contraseña de aplicación
   },
   tls: {
     rejectUnauthorized: false,
@@ -41,14 +41,24 @@ async function enviarNotificacion(clima, data) {
   const presion = data.main.pressure;
   const descripcionClima = data.weather[0].description;
 
+  // Obtener hora actual
   const currentHour = new Date().getHours();
+
+  // Verificar si es de día o noche
+  let esDeDia = '';
   const sunriseHour = unixToDate(data.sys.sunrise);
   const sunsetHour = unixToDate(data.sys.sunset);
-  const esDeDia = currentHour >= sunriseHour && currentHour < sunsetHour ? 'día' : 'noche';
+
+  if (currentHour >= sunriseHour && currentHour < sunsetHour) {
+    esDeDia = 'día';
+  } else {
+    esDeDia = 'noche';
+  }
 
   let mensaje = '';
 
   if (esDeDia === 'día') {
+    // Si es de día, verificamos si es un buen clima
     if (clima === 'soleado') {
       mensaje = `El clima está soleado. Es un buen momento para aprovechar el panel solar.\n
                  Temperatura: ${temperatura}°C\n
@@ -56,7 +66,7 @@ async function enviarNotificacion(clima, data) {
                  Presión: ${presion} hPa\n
                  Descripción del clima: ${descripcionClima}\n
                  Es de ${esDeDia}.`;
-    } else {
+    } else if (clima === 'lluvioso' || clima === 'nublado') {
       mensaje = `El clima no es óptimo para el panel solar. Es mejor esperar a que mejore el clima.\n
                  Temperatura: ${temperatura}°C\n
                  Humedad: ${humedad}%\n
@@ -65,6 +75,7 @@ async function enviarNotificacion(clima, data) {
                  Es de ${esDeDia}.`;
     }
   } else {
+    // Si es de noche
     mensaje = `Es de noche. No es el momento adecuado para aprovechar el panel solar.\n
                Temperatura: ${temperatura}°C\n
                Humedad: ${humedad}%\n
@@ -73,10 +84,10 @@ async function enviarNotificacion(clima, data) {
                Es de ${esDeDia}.`;
   }
 
-  const destinatarios = ['ferochoaoliveros@gmail.com', 'bryan.sanchezorozco@gmail.com', 'smartsolarpanel1@gmail.com'];
+  const destinatarios = ['ferochoaoliveros@gmail.com', 'bryan.sanchezorozco@gmail.com', 'smartsolarpanel1@gmail.com' ];  // Lista de correos
   const mailOptions = {
     from: 'smartsolarpanel1@gmail.com',
-    to: destinatarios,
+    to: destinatarios,  // Enviar a múltiples correos
     subject: 'Condiciones del clima para el panel solar',
     text: mensaje
   };
@@ -93,7 +104,7 @@ async function enviarNotificacion(clima, data) {
 // Función para verificar el clima y enviar notificación si es necesario
 async function verificarClima() {
   try {
-    const API_KEY = '19a8eb642dc7b4a5c9c4a91f809713f3';
+    const API_KEY = '19a8eb642dc7b4a5c9c4a91f809713f3';  // Tu clave de API
     const lat = 20.6597;
     const lon = -103.3496;
 
@@ -110,6 +121,7 @@ async function verificarClima() {
     const clima = data.weather[0].description.toLowerCase();
     console.log('Clima actual:', clima);
 
+    // Agregamos la condición para "cielo claro" como "soleado"
     if (clima.includes('soleado') || clima.includes('cielo claro')) {
       console.log('Clima soleado detectado, enviando notificación...');
       await enviarNotificacion('soleado', data);
@@ -146,21 +158,22 @@ let panelData = { servoh: 90, servov: 90, temperature: 27, battery: 32, batteryD
 
 // Ruta para recibir datos de Arduino
 app.post('/update-stats', (req, res) => {
-  panelData = req.body;
+  panelData = req.body;  // Actualiza el objeto con los datos recibidos
   console.log("Datos actualizados:", panelData);
   res.send("Datos actualizados correctamente");
 });
 
 // Ruta para obtener datos en tiempo real
 app.get('/get-stats', (req, res) => {
-  res.json(panelData);
+  res.json(panelData);  // Envía el objeto de datos en formato JSON
 });
 
-// Vinculación al puerto de Heroku o 3000 para local
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
-  
-  // Verificar el clima cada 2 horas
+  // Llamamos al clima inmediatamente al iniciar
+  verificarClima();
+
+  // Llamar a la función para verificar el clima cada 2 horas (7200000 ms)
   setInterval(verificarClima, 7200000);
 });
