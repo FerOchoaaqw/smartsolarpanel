@@ -1,15 +1,12 @@
 const mysql = require('mysql2');
-const connection = mysql.createConnection({
-  host: process.env.localhost,
-  user: process.env.root,
-  password: process.env.Alfebella753,
-  database: 'proyectopanelsolar'
-});
 
+// Obtener la URL de conexión desde la variable de entorno JAWSDB_URL
+const connection = mysql.createConnection(process.env.JAWSDB_URL);
 
+// Conexión a la base de datos
 connection.connect((err) => {
   if (err) throw err;
-  console.log('Conexión a la base de datos establecida');
+  console.log("Conexión a la base de datos exitosa!");
 });
 
 module.exports = connection;
