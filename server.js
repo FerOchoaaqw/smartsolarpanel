@@ -18,7 +18,7 @@ app.use(session({
 
 // Ruta para servir la página de inicio (login.html)
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'Mi_Panel.html'));  // Asegúrate de tener 'login.html' en la raíz del proyecto
+  res.sendFile(path.join(__dirname, 'pagina_panel_solar.html'));  // Asegúrate de tener 'login.html' en la raíz del proyecto
 });
 
 // Configuración de Nodemailer para enviar correos desde Gmail
