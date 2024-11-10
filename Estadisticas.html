@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Monitoreo</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            transition: background-image 0.5s ease;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 50px;
+            background-color: rgba(128, 128, 128, 0.8);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+            .top-bar a {
+                color: white;
+                text-decoration: none;
+                font-size: 16px;
+                padding: 10px 20px;
+                border-radius: 20px;
+                background: linear-gradient(45deg, #FF5733, #FF8D1A);
+                transition: background 0.3s ease, transform 0.3s ease;
+            }
+
+                .top-bar a:hover {
+                    background: linear-gradient(45deg, #FF8D1A, #FF5733);
+                    transform: scale(1.1);
+                }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .center-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .data-box {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .connect-button {
+            padding: 10px;
+            background-color: #0066CC;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .status-box {
+            padding: 5px;
+            width: 80px;
+            margin: 5px;
+            display: inline-block;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .conectado {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .desconectado {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            background-color: rgba(128, 128, 128, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="pagina_panel_solar.html">Inicio</a>
+    </div>
+
+    <div class="container">
+        <div class="center-box">
+            <h3>Mi Panel</h3>
+            <div class="row">
+                <div>Temperatura</div>
+                <div class="data-box" id="temperature">-- °C</div>
+            </div>
+            <div class="row">
+                <div>Batería</div>
+                <div class="data-box" id="battery">-- %</div>
+            </div>
+            <div class="row">
+                <div>Duración de Batería</div>
+                <div class="data-box" id="batteryDuration">-- horas</div>
+            </div>
+            <div class="row">
+                <div>Humedad</div>
+                <div class="data-box" id="humidity">-- %</div>
+            </div>
+            <button class="connect-button" onclick="connectArduino()">Conectar</button>
+            <div class="status-box" id="connected" style="display: none;">Conectado</div>
+            <div class="status-box" id="disconnected" style="display: none;">Desconectado</div>
+        </div>
+
+        <div class="center-box" style="width: 350px;">
+            <h3>Clima del Día</h3>
+            <div class="row">
+                <div>Ciudad</div>
+                <select id="citySelector" onchange="fetchWeatherData()">
+                    <option value="Guadalajara">Guadalajara</option>
+                    <option value="Monterrey">Monterrey</option>
+                    <option value="Puebla">Puebla</option>
+                    <option value="Ciudad de México">Ciudad de México</option>
+                    <option value="Aguascalientes">Aguascalientes</option>
+                </select>
+            </div>
+            <div class="row">
+                <div>Clima</div>
+                <div class="data-box" id="weather">--</div>
+            </div>
+            <div class="row">
+                <div>Humedad</div>
+                <div class="data-box" id="weatherHumidity">-- %</div>
+            </div>
+            <div class="row">
+                <div>Temperatura</div>
+                <div class="data-box" id="weatherTemperature">-- °C</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-bar">
+        <a href="https://www.facebook.com" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Logo_de_Facebook.png" alt="Facebook" style="width: 30px; height: 30px;">
+        </a>
+    </div>
+
+    <script>
+        function connectArduino() {
+            document.getElementById('connected').style.display = 'block';
+            document.getElementById('disconnected').style.display = 'none';
+            alert("Conectado al Arduino.");
+        }
+
+        function updateBackgroundImage() {
+            const currentHour = new Date().getHours();
+            const body = document.body;
+
+            if (currentHour >= 6 && currentHour < 15) {
+                body.style.backgroundImage = "url('https://img.freepik.com/fotos-premium/cielo-nubes-puede-utilizar-como-fondo_483040-6337.jpg')";
+                body.style.backgroundColor = "#87CEEB"; // Opcional, si la imagen no se carga
+            } else if (currentHour >= 15 && currentHour < 20) {
+                body.style.backgroundImage = "url('https://img.freepik.com/foto-gratis/fondo-cielo-tarde_1150-12476.jpg?semt=ais_hybrid')";
+                body.style.backgroundColor = "#FFDEAD"; // Opcional, si la imagen no se carga
+            } else {
+                body.style.backgroundImage = "url('https://p1.pxfuel.com/preview/924/760/869/moon-full-moon-night-moonlight.jpg')";
+                body.style.backgroundColor = "#2F4F4F"; // Opcional, si la imagen no se carga
+            }
+        }
+
+        function fetchWeatherData() {
+    const city = document.getElementById('citySelector').value;
+    const apiKey = '19a8eb642dc7b4a5c9c4a91f809713f3'; // Tu API Key de OpenWeatherMap
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=es`; // URL corregida
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('weather').innerText = data.weather[0].description;
+            document.getElementById('weatherHumidity').innerText = data.main.humidity + ' %';
+            document.getElementById('weatherTemperature').innerText = data.main.temp + ' °C';
+        })
+        .catch(error => {
+            console.error('Error al obtener los datos del clima:', error);
+        });
+}
+
+
+        document.addEventListener("DOMContentLoaded", updateBackgroundImage);
+    </script>
+</body>
+</html>

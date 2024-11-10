@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a tu panel</title>
+    <style>
+        
+        body {
+            background-image: url('https://c4.wallpaperflare.com/wallpaper/639/794/471/azul-blanca-cielo-naturaleza-wallpaper-preview.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
+        }
+
+       
+        .navbar {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 16px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            text-align: right;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: #f2f2f2;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 90%;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+       
+        .form-section {
+            width: 100%;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section h2 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-section label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-section input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-section button {
+            padding: 12px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-section button:hover {
+            background-color: #555;
+        }
+
+        .info-text {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .info-text a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .info-text a:hover {
+            text-decoration: underline;
+        }
+
+        
+        .social-bar {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        .social-bar a {
+            color: #f2f2f2;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .social-bar a:hover {
+            color: #ddd;
+        }
+
+        .support-button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .support-button:hover {
+            background-color: #555;
+        }
+
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="navbar">
+        <a href="pagina_panel_solar.html">Inicio</a>
+    </div>
+
+    
+    <div class="form-container">
+        
+        
+        <div class="form-section">
+            <h2>Iniciar Sesión</h2>
+            <form action="/login" method="post">
+                <label>Correo:</label>
+                <input type="email" name="email" required>
+                <label>Contraseña:</label>
+                <input type="password" name="password" required>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+
+        
+    </div>
+
+   
+    <div class="social-bar">
+        <a href="https://www.facebook.com" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Logo_de_Facebook.png" alt="Facebook" style="width: 30px; height: 30px;">
+        </a>
+        <button class="support-button" onclick="showModal()">Soporte</button>
+    </div>
+
+   
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img src="https://img.freepik.com/vector-premium/icono-advertencia-error-usuario-linea-editable_625445-186.jpg" alt="Soporte" style="width: 100px; height: 100px; margin-bottom: 15px;">
+            <p>Contacta con los proveedores en soporte</p>
+        </div>
+    </div>
+
+    
+    <script>
+        function showModal() {
+            document.getElementById('modal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+        window.onclick = function (event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

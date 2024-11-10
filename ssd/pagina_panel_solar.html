@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información sobre Paneles Solares</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            overflow-y: scroll;
+            min-height: 200vh;
+        }
+
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+            .navbar a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 20px;
+                text-decoration: none;
+            }
+
+                .navbar a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+
+        .hero-image {
+            position: relative;
+            width: 95%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .hero-image-small {
+            width: 77%;
+            height: auto;
+            margin: -140px auto 0;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 80%;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 1;
+        }
+
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h4 {
+            font-size: 2em;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: black;
+        }
+
+        .separator {
+            border: 3px solid black;
+            width: 95%;
+            margin: 20px auto;
+        }
+
+        .content {
+            display: flex;
+            margin: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .main {
+            flex: 60%;
+            padding: 20px;
+        }
+
+        .curiosities {
+            flex: 40%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .img-curiosities {
+            width: 50%;
+            height: auto;
+        }
+
+        .footer {
+            background-color: #333;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        .column-section {
+            margin-bottom: 20px;
+        }
+
+        .additional-image {
+            width: 50%;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .products-title {
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .columns {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        .column {
+            flex: 22%;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .product-image {
+            width: 80%;
+            height: auto;
+            margin: 10px auto;
+        }
+
+        .facebook-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+            .facebook-link img {
+                width: 30px;
+                height: auto;
+                margin-right: 10px;
+            }
+
+        .support-title {
+            text-align: center;
+            font-weight: bold;
+            color: black;
+            margin-top: 20px;
+        }
+
+        .technician {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .support-image {
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#pagina_panel_solar.html">Inicio</a>
+        <a href="#introduccion">Introducción</a>
+        <a href="#soporte">Soporte</a>
+        <a href="#productos">Productos</a>
+        <a href="Mi Panel.html">Mi Panel</a>
+
+    </div>
+
+    <div class="hero-image" id="inicio">
+        <img src="https://m.media-amazon.com/images/I/81kghHoBKLS._AC_SY355_.jpg" alt="Imagen de Inicio" class="hero-image-small">
+        <div class="overlay"></div>
+        <div class="hero-text">
+            <h1><strong>Smart Panel Solar</strong></h1>
+            <h4><strong>Bienvenido</strong></h4>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="content">
+        <div class="main" id="introduccion">
+            <h1>Beneficios con Paneles Solares</h1>
+            <img src="https://img.freepik.com/vector-gratis/tecnologia-energia-solar-recurso…es-baterias-solares-equipos-innovadores-generacion-energia_335657-3383.jpg" alt="Panel Solar" class="small-img">
+            <h2 style="text-align: center;">Smart Panel Solar</h2>
+            <p style="text-align: justify;">En un mundo cada vez más consciente de la necesidad de adoptar energías renovables, el Smart Panel Solar emerge como una solución innovadora y versátil para aprovechar la energía solar de manera eficiente...</p>
+            <p style="text-align: justify;">Además, el panel incluye un sensor de humedad que proporciona alertas sobre posibles mantenimientos o la necesidad de proteger el panel de condiciones adversas...</p>
+            <p style="text-align: justify;">Uno de los aspectos más atractivos de este sistema es su modularidad...</p>
+        </div>
+
+        <div class="curiosities">
+            <div class="column-section">
+                <h2>Datos Curiosos sobre Paneles Solares</h2>
+                <img src="https://st4.depositphotos.com/14846838/21567/v/450/depositphotos_215675860-stock-illustration-solar-plates-sun-depicting-solar.jpg" alt="Datos Curiosos" class="img-curiosities">
+                <ul>
+                    <li><strong>Reducción de CO2</strong>: Un panel solar puede evitar más de 100,000 libras de CO2 en su vida útil.</li>
+                    <li><strong>Ahorro Económico</strong>: Pueden ahorrar miles de dólares en facturas de electricidad y aumentar el valor de la propiedad.</li>
+                    <li><strong>Durabilidad</strong>: La mayoría tiene una vida útil de 25 años o más, con garantías de rendimiento.</li>
+                    <li><strong>Potencial de Generación</strong>: Generan energía suficiente para múltiples electrodomésticos.</li>
+                    <li><strong>Uso Portátil</strong>: Ideales para picnics y camping, ofrecen energía para cargar dispositivos donde sea necesario.</li>
+                    <li><strong>Variedad de Aplicaciones</strong>: Útiles en jardines, caravanas y casas móviles.</li>
+                    <li><strong>Crecimiento de la Energía Solar</strong>: Es una de las fuentes de energía de más rápido crecimiento en el mundo.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="products-title" id="productos">
+        <h4><strong>Productos que puedes cambiar en tu panel con nosotros</strong></h4>
+    </div>
+
+    <div class="columns">
+        <div class="column">
+            <h3>La Epcom PL-7-12</h3>
+            <img src="https://adises.com.mx/media/BAT-121000-2-1-1.jpg" alt="Producto 1" class="product-image">
+            <p>La Epcom PL-7-12 es una batería recargable de plomo-ácido sellada de 12 V y 7000 mAh, ideal para iluminacion, sistemas de alarma, carga de dispositivos. $418.00</p>
+        </div>
+        <div class="column">
+            <h3>Batería 12V 26A</h3>
+            <img src="https://sucomputo.com/wp-content/uploads/2017/12/bateria-sellada-12v-35-ah-FL12350GS.jpg" alt="Producto 2" class="product-image">
+            <p>La Epcom PL2612 es una batería sellada de plomo-ácido (VRLA) de 12 V y 26,000 mAh, libre de mantenimiento, ideal para sistemas de respaldo y aplicaciones de energía renovable. $1,519.00</p>
+        </div>
+        <div class="column">
+            <h3>Panel 10w, 12Vcc</h3>
+            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_803686-MLM72018798124_102023-F.webp" alt="Producto 3" class="product-image">
+            <p>El panel solar de 10W y 12VCC convierte la energía solar en electricidad, adecuado para cargas pequeñas como iluminación y cargadores de baterías. $388.20</p>
+        </div>
+        <div class="column">
+            <h3>Panel 150w, 12 Vcc</h3>
+            <img src="https://tiendasoportemorelia.com/wp-content/uploads/2023/02/Modulo-Solar-EPCOM-POWER-LINE-150W-12-Vcc-Policristalino-36-Celdas-grado-A.png" alt="Producto 4" class="product-image">
+            <p>El panel solar de 150W y 12VCC es eficiente para generar electricidad, adecuado para cargas grandes como electrodomésticos pequeños. $2,043.20</p>
+        </div>
+    </div>
+
+    <div class="additional-image">
+        <img src="https://img.freepik.com/vector-premium/dibujos-animados-sol-haciendo-gesto-mano-onda_309278-7411.jpg" alt="Imagen Adicional" class="additional-image">
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="support-title" id="soporte">
+        <h4><strong>Soporte</strong></h4>
+    </div>
+
+    <div class="columns">
+        <div class="column">
+            <img src="https://img.freepik.com/fotos-premium/hombre-negocios-guapo-personaje-dibujos-animados-traje_959624-106012.jpg" alt="Hombre de negocios guapo" style="width: 40%;" loading="lazy" decoding="async">
+            <div class="technician">ING.Bryan Ricardo Sanchez Orozco</div>
+            <div>BryanSanoro@gmail.com</div>
+        </div>
+        <div class="column">
+            <img src="https://img.freepik.com/vector-gratis/hombre-negocios-confiado-traje_1308-174765.jpg" alt="Hombre de negocios confiado" style="width: 18%;" loading="lazy" decoding="async">
+            <div class="technician">ING.Fernando Ochoa Oliveros</div>
+            <div>FernandoOchol@gmail.com</div>
+        </div>
+        <div class="column">
+            <img src="https://img.freepik.com/vector-gratis/empresario-confiado-traje_1308-175573.jpg" alt="Empresario confiado" style="width: 18%;" loading="lazy" decoding="async">
+            <div class="technician">ING.David Santiago Sanchez Silva</div>
+            <div>DavidSansil@gmail.com</div>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="footer">
+        <div class="facebook-link">
+            <a href="https://www.facebook.com/share/g/17a3J21i7R/" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Logo_de_Facebook.png" alt="Facebook">
+            </a>
+        </div>
+    </div>
+</body>
+</html>
