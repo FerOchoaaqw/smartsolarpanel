@@ -3,7 +3,7 @@ const path = require('path');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
-const db = require('./database');
+const { createClient } = require('@supabase/supabase-js');
 const nodemailer = require('nodemailer');
 const fetch = require('node-fetch');
 
@@ -15,6 +15,9 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+
+// Inicializar Supabase
+const supabase = createClient('https://jedepefvgyhzkkcwccfe.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplZGVwZWZ2Z3loemtrY3djY2ZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzEyNjM4NTYsImV4cCI6MjA0NjgzOTg1Nn0.a6LyEMjBDw6mNXd2y0JEnO2IPb9qumG6U1PeJlgjxBU');
 
 // Ruta para servir la página de inicio (login.html)
 app.get('/', (req, res) => {
@@ -146,16 +149,41 @@ async function verificarClima() {
 verificarClima();
 
 // Ruta de inicio de sesión
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-  db.query('SELECT * FROM usuarios WHERE email = ?', [email], async (err, results) => {
-    if (err || results.length === 0 || !(await bcrypt.compare(password, results[0].password))) {
-      return res.redirect('/error.html'); 
+  // Verificar que los campos no estén vacíos
+  if (!email || !password) {
+    return res.status(400).send('Email y contraseña son requeridos');
+  }
+
+  try {
+    // Buscar el usuario en la base de datos usando Supabase
+    const { data: user, error } = await supabase
+      .from('usuarios') // nombre de tu tabla
+      .select('*')
+      .eq('correo', email) // buscar por correo electrónico
+      .single(); // solo debería devolver un solo usuario
+
+    if (error || !user) {
+      return res.status(401).send('Correo o contraseña incorrectos'); // Si no se encuentra el usuario
     }
-    req.session.userId = results[0].id;
-    res.redirect('/Estadisticas.html');
-  });
+
+    // Comparar la contraseña con bcrypt
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      return res.status(401).send('Correo o contraseña incorrectos'); // Si la contraseña no coincide
+    }
+
+    // Si las credenciales son correctas
+    req.session.userId = user.id; // Almacenar el ID del usuario en la sesión
+    res.redirect('/Estadisticas.html'); // Redirigir a la página de estadísticas
+
+  } catch (err) {
+    console.error('Error al buscar el usuario en Supabase:', err);
+    res.status(500).send('Error en la base de datos');
+  }
 });
 
 // Variables para almacenar datos recibidos
