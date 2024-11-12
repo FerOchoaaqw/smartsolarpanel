@@ -1,12 +1,10 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
-// Conexión a la base de datos usando las variables de entorno
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST,       // Utiliza la variable de entorno DB_HOST
-  user: process.env.DB_USER,       // Utiliza la variable de entorno DB_USER
-  password: process.env.DB_PASSWORD,  // Utiliza la variable de entorno DB_PASSWORD
-  database: process.env.DB_NAME,    // Utiliza la variable de entorno DB_NAME
-  port: process.env.DB_PORT || 6543  // Utiliza la variable de entorno DB_PORT (o 5432 por defecto)
+  host: 'localhost',  
+  user: 'root',  
+  password: 'Alfebella753',  
+  database: 'proyectopanelsolar'
 });
 
 connection.connect((err) => {

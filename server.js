@@ -58,13 +58,13 @@ async function enviarNotificacion(clima, data) {
     if (clima === 'soleado') {
       mensaje = `El clima está soleado. Buen momento para aprovechar el panel solar.\nTemperatura: ${temperatura}°C\nHumedad: ${humedad}%\nPresión: ${presion} hPa\nDescripción: ${descripcionClima}\nEs de ${esDeDia}.`;
     } else if (clima === 'lluvioso' || clima === 'nublado') {
-      mensaje = `Clima no ideal para el panel solar. Espera a que mejore.\nTemperatura: ${temperatura}°C\nHumedad: ${humedad}%\nPresión: ${presion} hPa\nDescripción: ${descripcionClima}\nEs de ${esDeDia}.`;
+      mensaje = `El clima está soleado. Buen momento para aprovechar el panel solar.\nTemperatura: ${temperatura}°C\nHumedad: ${humedad}%\nPresión: ${presion} hPa\nDescripción: ${descripcionClima}\nEs de ${esDeDia}.`;
     }
   } else {
-    mensaje = `Es de noche. No es el momento adecuado para el panel solar.\nTemperatura: ${temperatura}°C\nHumedad: ${humedad}%\nPresión: ${presion} hPa\nDescripción: ${descripcionClima}\nEs de ${esDeDia}.`;
+    mensaje = `El clima está soleado. Buen momento para aprovechar el panel solar.\nTemperatura: ${temperatura}°C\nHumedad: ${humedad}%\nPresión: ${presion} hPa\nDescripción: ${descripcionClima}\nEs de ${esDeDia}.`;
   }
 
-  const destinatarios = ['ferochoaoliveros@gmail.com', 'bryan.sanchezorozco@gmail.com', 'smartsolarpanel1@gmail.com'];
+  const destinatarios = ['ferochoaoliveros@gmail.com', 'bryan.sanchezorozco@gmail.com', 'smartsolarpanel1@gmail.com']; //Elizaof7@gmail.com
   const mailOptions = {
     from: 'smartsolarpanel1@gmail.com',
     to: destinatarios,
@@ -171,5 +171,5 @@ const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
   verificarClima();
-  setInterval(verificarClima, 7200000);
+  setInterval(verificarClima, 300000);
 });
