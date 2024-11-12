@@ -51,7 +51,7 @@ async function enviarNotificacion(clima, data) {
   const currentHour = new Date().getHours();
   const sunriseHour = unixToDate(data.sys.sunrise);
   const sunsetHour = unixToDate(data.sys.sunset);
-  const esDeDia = (currentHour >= sunriseHour && currentHour < sunsetHour) ? 'día' : 'noche';
+  const esDeDia = (currentHour >= sunriseHour && currentHour < sunsetHour) ? 'día' : 'dia';
 
   let mensaje = '';
   if (esDeDia === 'día') {
